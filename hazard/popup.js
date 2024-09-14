@@ -1,6 +1,4 @@
-const { all } = require("axios");
-
-const ALLERGENS = ['peanut'];
+const ALLERGENS = ['peanut']; //must be lower case + singular
 
 function modifyProduct(href, canhave) {
     const elements = document.querySelectorAll(`[href="${href}"]`);
@@ -132,6 +130,8 @@ function addLogoOverlay() {
 
 //canHave => 0: dk; 1: no; 2: yes
 function canHave(href, ingredients, allergenInfo) {
+    let allergen_discount = [];
+
     if (!ingredients && !allergenInfo) {
         return 0;
     }
@@ -143,17 +143,32 @@ function canHave(href, ingredients, allergenInfo) {
         allergenInfo = '';
     }
 
+    for (let i = 0; i < ALLERGENS.length; i++) {
+        if (href.toLowerCase().includes(ALLERGENS[i] + ' free') || href.includes(ALLERGENS[i] + '-free')) {
+            allergen_discount.push(ALLERGENS[i]);
+            break;
+        }
+        if (allergenInfo.toLowerCase().includes(ALLERGENS[i] + ' free') || allergenInfo.includes(ALLERGENS[i] + '-free')) {
+            allergen_discount.push(ALLERGENS[i]);
+            break;
+        }
+    }
+
     let canHave = 2;
     for (let i = 0; i < ALLERGENS.length; i++) {
-        if (href.includes(ALLERGENS[i])) {
+        if (allergen_discount.includes(ALLERGENS[i])) {
+            continue;
+        }
+
+        if (href.toLowerCase().includes(ALLERGENS[i])) {
             canHave = 1;
             break;
         }
-        if (ingredients.includes(ALLERGENS[i])) {
+        if (ingredients.toLowerCase().includes(ALLERGENS[i])) {
             canHave = 1;
             break;
         }
-        if (allergenInfo.includes(ALLERGENS[i])) {
+        if (allergenInfo.toLowerCase().includes(ALLERGENS[i])) {
             canHave = 1;
             break;
         }
