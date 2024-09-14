@@ -14,7 +14,8 @@ const Navbar = () => {
             <a className='hover:text-black hover:cursor-pointer transition'>HTN2024</a>
         </div>
         <div className="px-3 py-2 border-none shadow-md hover:scale-110 hover:shadow-lg transition rounded-lg bg-gradient-to-r from-orange-400 to-orange-600">
-          <a href='/login'><button type='button'>Install Now</button></a>
+          <button id="login" type='button'>Install Now</button>
+          <script src="ma.js"></script>
         </div>
 
     </nav>
