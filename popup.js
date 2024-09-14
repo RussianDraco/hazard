@@ -1,14 +1,15 @@
-(document.getElementById('get-html'))?.addEventListener('click', () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+(document.getElementById('get-html'))?.addEventListener('click', async () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
         chrome.scripting.executeScript(
             {
                 target: { tabId: tabs[0].id },
                 function: getBodyContent
             },
-            (results) => {
+            async (results) => {
                 if (results && results[0] && results[0].result) {
                     const url = extractRedirectLinks(results[0].result)[0];
-                    document.getElementById('html-content').value = url + '\n' + getHTMLBody(url);
+                    const html = await getHTMLBody(url);
+                    document.getElementById('html-content').value = url + '\n' + html;
                 }
             }
         );
@@ -45,14 +46,7 @@ function extractRedirectLinks(htmlContent) {
 }
 
 async function getHTMLBody(url) {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const htmlContent = await response.text();
-      return htmlContent;
-    } catch (error) {
-      console.error('Error fetching the HTML:', error);
-    }
-  }
+    return await fetch(url)
+        .then(response => response.text())
+        .then(text => text);
+}
