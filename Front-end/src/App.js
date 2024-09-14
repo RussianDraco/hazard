@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Sponsor from "./components/Sponsor";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import Home from "../src/pages/Home"
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element = {<><Hero/><Sponsor/><About/></>} />
-          <Route path="/login" element = {<h1 className="text-9xl">1</h1>} />
+          <Route path="/login" element = {<Login/>} />
         </Routes>
       </Router>
     </>
