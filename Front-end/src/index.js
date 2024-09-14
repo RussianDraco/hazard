@@ -12,7 +12,7 @@ root.render(
     domain="dev-gop37obgcywx3sqh.us.auth0.com"
     clientId="APEnSBeV2GopTPeuGuXIJ6Av2LUIhGIb"
     authorizationParams={{
-      redirect_uri: window.location.origin+'/login'
+      redirect_uri: window.location.origin + '/login'
     }}
   >
     <App />

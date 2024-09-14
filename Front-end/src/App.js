@@ -5,6 +5,7 @@ import Sponsor from "./components/Sponsor";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import Home from "../src/pages/Home"
 import Login from "./pages/Login";
+import Testimonials from "./components/Testimonials";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Navbar />
       <Router>
         <Routes>
-          <Route path="/" element = {<><Hero/><Sponsor/><About/></>} />
+          <Route path="/" element = {<><Hero/><Sponsor/><About/><Testimonials/></>} />
           <Route path="/login" element = {<Login/>} />
         </Routes>
       </Router>
