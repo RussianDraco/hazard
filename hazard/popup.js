@@ -144,14 +144,17 @@ function canHave(href, ingredients, allergenInfo) {
     }
 
     for (let i = 0; i < ALLERGENS.length; i++) {
-        if (href.toLowerCase().includes(ALLERGENS[i] + ' free') || href.includes(ALLERGENS[i] + '-free')) {
+        if (href.toLowerCase().includes(ALLERGENS[i] + '-free')) {
             allergen_discount.push(ALLERGENS[i]);
-            break;
+            continue;
         }
-        if (allergenInfo.toLowerCase().includes(ALLERGENS[i] + ' free') || allergenInfo.includes(ALLERGENS[i] + '-free')) {
+        if (allergenInfo.toLowerCase().includes(ALLERGENS[i] + ' free') || allergenInfo.toLowerCase().includes(ALLERGENS[i] + '-free')) {
             allergen_discount.push(ALLERGENS[i]);
-            break;
         }
+    }
+
+    if (allergen_discount.length == ALLERGENS.length) {
+        return 2;
     }
 
     let canHave = 2;
