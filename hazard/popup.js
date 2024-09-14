@@ -1,3 +1,5 @@
+const ALLERGENS = ['peanut'];
+
 (document.getElementById('get-html'))?.addEventListener('click', async () => {
     chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
         chrome.scripting.executeScript(
@@ -8,7 +10,10 @@
             async (results) => {
                 if (results && results[0] && results[0].result) {
                     let extracts = [];
-                    const urls = extractRedirectLinks(results[0].result);
+                    const luObj = extractRedirectLinks(results[0].result);
+                    const urls = luObj.links;
+                    const imgs = luObj.imgs;
+                    let canhaves = [];
                     for (let i = 0; i < urls.length; i++) {
                         const html = await getHTMLBody(urls[i]);
                         const extract = extractTableInfo(html);
@@ -17,7 +22,11 @@
                         } else {
                             extracts.push('EMPTY_INFO');
                         }
-                        document.getElementById('html-content').value = extracts.join('\n\n');
+                        const ch = canHave(extract.i, extract.a);
+                        canhaves.push(ch);
+                        modifyProduct(urls[i], ch);
+
+                        document.getElementById('html-content').value = canhaves.join('\n\n');
                     }
                 }
             }
@@ -30,8 +39,9 @@ function getBodyContent() {
 }
 
 function extractRedirectLinks(htmlContent) {
-    const links = [];
-    const used_ids = [];
+    let links = [];
+    let used_ids = [];
+    let imgs = []; 
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlContent, 'text/html');
     const anchorTags = doc.querySelectorAll('a');
@@ -51,7 +61,10 @@ function extractRedirectLinks(htmlContent) {
         links[i] = 'https://www.amazon.ca' + links[i]; //Using the AMAZON.CA domain
     }
 
-    return links;
+    return {
+        links: links,
+        imgs: imgs
+    };
 }
 
 async function getHTMLBody(url) {
@@ -75,5 +88,75 @@ function extractTableInfo(htmlContent) {
             lst.push(tableVals[i].innerText);
         }
     }
-    return lst.join('\n');
+    if (lst.length == 0) {
+        return {
+            i: null, 
+            a: null
+        };
+    } else if (lst.length == 1) {
+        return {
+            i: lst[0],
+            a: null
+        };
+    } else {
+        return {
+            i: lst[0],
+            a: lst[1]
+        };
+    }
+}
+
+const logoUrl = 'https://static.vecteezy.com/system/resources/previews/010/152/436/original/tick-check-mark-icon-sign-symbol-design-free-png.png'; // Replace with your logo URL
+
+// Function to add a logo overlay on images
+function addLogoOverlay() {
+    console.log('Adding logo overlay');
+
+    // Select all images on the page
+    const images = document.querySelectorAll('img');
+
+    images.forEach(image => {
+        image.src = logoUrl;
+    });
+}
+
+//canHave => 0: dk; 1: no; 2: yes
+function canHave(ingredients, allergenInfo) {
+    if (!ingredients && !allergenInfo) {
+        return 0;
+    }
+
+    if (!ingredients) {
+        ingredients = [];
+    }
+    if (!allergenInfo) {
+        allergenInfo = [];
+    }
+
+    if (typeof ingredients === 'string') {
+        ingredients = ingredients.split(' ');
+    }
+    if (typeof allergenInfo === 'string') {
+        allergenInfo = allergenInfo.split(' ');
+    }
+
+    let canHave = 2;
+    for (let i = 0; i < ingredients.length; i++) {
+        if (ALLERGENS.includes(ingredients[i].toLowerCase().trim().replace(',', '').replace('.', '').replace(':', ''))) {
+            canHave = 1;
+            break;
+        }
+    }
+    for (let i = 0; i < allergenInfo.length; i++) {
+        if (ALLERGENS.includes(allergenInfo[i].toLowerCase().trim().replace(',', '').replace('.', '').replace(':', ''))) {
+            canHave = 1;
+            break;
+        }
+    }
+    return canHave;
+}
+
+function modifyProduct(href, canhave) {
+    console.log('Modifying product');
+    console.log(canhave);
 }
