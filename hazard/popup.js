@@ -9,7 +9,8 @@
                 if (results && results[0] && results[0].result) {
                     const url = extractRedirectLinks(results[0].result)[0];
                     const html = await getHTMLBody(url);
-                    document.getElementById('html-content').value = url + '\n' + html;
+                    const extract = extractAllergenInfo(html);
+                    document.getElementById('html-content').value = extract;
                 }
             }
         );
@@ -49,4 +50,11 @@ async function getHTMLBody(url) {
     return await fetch(url)
         .then(response => response.text())
         .then(text => text);
+}
+
+function extractAllergenInfo(htmlContent) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlContent, 'text/html');
+    const allergenInfo = doc.querySelector('#productDescription').textContent;
+    return allergenInfo;
 }

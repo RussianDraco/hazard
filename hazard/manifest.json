@@ -17,12 +17,11 @@
     },
     "content_scripts": [
       {
-        "matches": ["*://*.amazon.ca/*", "*://*.amazon.com/*"],
+        "matches": ["*://*.amazon.ca/*"],
         "js": ["popup.js"]
       }
     ],
     "host_permissions": [
-      "*://*.amazon.ca/*",
-      "*://*.amazon.com/*"
+      "*://*.amazon.ca/*"
     ]
   }
