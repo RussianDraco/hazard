@@ -143,15 +143,15 @@ function canHave(href, ingredients, allergenInfo) {
 
     let canHave = 2;
     for (let i = 0; i < ALLERGENS.length; i++) {
-        if (href.includes(ALLERGENS[i])) {
+        if (href.toLowerCase().includes(ALLERGENS[i])) {
             canHave = 1;
             break;
         }
-        if (ingredients.includes(ALLERGENS[i])) {
+        if (ingredients.toLowerCase().includes(ALLERGENS[i])) {
             canHave = 1;
             break;
         }
-        if (allergenInfo.includes(ALLERGENS[i])) {
+        if (allergenInfo.toLowerCase().includes(ALLERGENS[i])) {
             canHave = 1;
             break;
         }
