@@ -1,4 +1,4 @@
-document.getElementById('get-html').addEventListener('click', () => {
+(document.getElementById('get-html'))?.addEventListener('click', () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         chrome.scripting.executeScript(
             {
@@ -7,7 +7,8 @@ document.getElementById('get-html').addEventListener('click', () => {
             },
             (results) => {
                 if (results && results[0] && results[0].result) {
-                    document.getElementById('html-content').value = extractRedirectLinks(results[0].result);
+                    const url = extractRedirectLinks(results[0].result)[0];
+                    document.getElementById('html-content').value = url + '\n' + getHTMLBody(url);
                 }
             }
         );
@@ -36,5 +37,22 @@ function extractRedirectLinks(htmlContent) {
       }
     });
   
-    return links.join('\n\n');
+    for (let i = 0; i < links.length; i++) {
+        links[i] = 'https://www.amazon.ca' + links[i]; //Using the AMAZON.CA domain
+    }
+
+    return links;
 }
+
+async function getHTMLBody(url) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const htmlContent = await response.text();
+      return htmlContent;
+    } catch (error) {
+      console.error('Error fetching the HTML:', error);
+    }
+  }

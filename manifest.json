@@ -4,7 +4,8 @@
     "description": "An amazon chrome web extension that helps you identify personnally hazardous products",
     "permissions": [
       "activeTab",
-      "scripting"
+      "scripting",
+      "tabs"
     ],
     "version": "1.0",
     "action": {
@@ -13,5 +14,15 @@
     },
     "background": {
       "service_worker": "background.js"
-    }
+    },
+    "content_scripts": [
+      {
+        "matches": ["*://*.amazon.ca/*", "*://*.amazon.com/*"],
+        "js": ["popup.js"]
+      }
+    ],
+    "host_permissions": [
+      "*://*.amazon.ca/*",
+      "*://*.amazon.com/*"
+    ]
   }
