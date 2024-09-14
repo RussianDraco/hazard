@@ -1,10 +1,17 @@
 {
     "manifest_version": 3,
     "name": "Hazard",
-    "description": "An amazon detector which detects hazard",
+    "description": "An amazon chrome web extension that helps you identify personnally hazardous products",
+    "permissions": [
+      "activeTab",
+      "scripting"
+    ],
     "version": "1.0",
     "action": {
-      "default_popup": "popup/index.html",
+      "default_popup": "popup.html",
       "default_icon":"images/hazard.png"
+    },
+    "background": {
+      "service_worker": "background.js"
     }
   }
