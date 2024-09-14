@@ -1,5 +1,3 @@
-const { all } = require("axios");
-
 const ALLERGENS = ['peanut'];
 
 function modifyProduct(href, canhave) {
