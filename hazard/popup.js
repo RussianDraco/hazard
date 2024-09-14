@@ -1,16 +1,13 @@
+const { all } = require("axios");
+
 const ALLERGENS = ['peanut'];
 
 function modifyProduct(href, canhave) {
     const elements = document.querySelectorAll(`[href="${href}"]`);
 
     for (let i = 0; i < elements.length; i++) {
-        if (elements[i].firstElementChild.class === 'a-size-base-plus a-color-base a-text-normal') {
-            elements[i].firstElementChild.innerHTML = elements[i].firstElementChild.innerHTML + ' STATUS=' + canhave;
-        }
+        elements[i].firstElementChild.innerHTML = elements[i].firstElementChild.innerHTML + ' STATUS=' + canhave;
     }
-
-    console.log('Modifying product');
-    console.log(canhave);
 }
 
 (document.getElementById('get-html'))?.addEventListener('click', async () => {
@@ -35,7 +32,7 @@ function modifyProduct(href, canhave) {
                         } else {
                             extracts.push('EMPTY_INFO');
                         }
-                        const ch = canHave(extract.i, extract.a);
+                        const ch = canHave(urls[i], extract.i, extract.a);
                         canhaves.push(ch);
                         modifyProduct(urls[i], ch);
 
@@ -134,34 +131,29 @@ function addLogoOverlay() {
 }
 
 //canHave => 0: dk; 1: no; 2: yes
-function canHave(ingredients, allergenInfo) {
+function canHave(href, ingredients, allergenInfo) {
     if (!ingredients && !allergenInfo) {
         return 0;
     }
 
     if (!ingredients) {
-        ingredients = [];
+        ingredients = '';
     }
     if (!allergenInfo) {
-        allergenInfo = [];
-    }
-
-    if (typeof ingredients === 'string') {
-        ingredients = ingredients.split(' ');
-    }
-    if (typeof allergenInfo === 'string') {
-        allergenInfo = allergenInfo.split(' ');
+        allergenInfo = '';
     }
 
     let canHave = 2;
-    for (let i = 0; i < ingredients.length; i++) {
-        if (ALLERGENS.includes(ingredients[i].toLowerCase().trim().replace(',', '').replace('.', '').replace(':', ''))) {
+    for (let i = 0; i < ALLERGENS.length; i++) {
+        if (href.includes(ALLERGENS[i])) {
             canHave = 1;
             break;
         }
-    }
-    for (let i = 0; i < allergenInfo.length; i++) {
-        if (ALLERGENS.includes(allergenInfo[i].toLowerCase().trim().replace(',', '').replace('.', '').replace(':', ''))) {
+        if (ingredients.includes(ALLERGENS[i])) {
+            canHave = 1;
+            break;
+        }
+        if (allergenInfo.includes(ALLERGENS[i])) {
             canHave = 1;
             break;
         }
