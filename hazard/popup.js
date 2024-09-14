@@ -1,5 +1,18 @@
 const ALLERGENS = ['peanut'];
 
+function modifyProduct(href, canhave) {
+    const elements = document.querySelectorAll(`[href="${href}"]`);
+
+    for (let i = 0; i < elements.length; i++) {
+        if (elements[i].firstElementChild.class === 'a-size-base-plus a-color-base a-text-normal') {
+            elements[i].firstElementChild.innerHTML = elements[i].firstElementChild.innerHTML + ' STATUS=' + canhave;
+        }
+    }
+
+    console.log('Modifying product');
+    console.log(canhave);
+}
+
 (document.getElementById('get-html'))?.addEventListener('click', async () => {
     chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
         chrome.scripting.executeScript(
@@ -154,9 +167,4 @@ function canHave(ingredients, allergenInfo) {
         }
     }
     return canHave;
-}
-
-function modifyProduct(href, canhave) {
-    console.log('Modifying product');
-    console.log(canhave);
 }
