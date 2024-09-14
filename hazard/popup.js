@@ -7,10 +7,18 @@
             },
             async (results) => {
                 if (results && results[0] && results[0].result) {
-                    const url = extractRedirectLinks(results[0].result)[0];
-                    const html = await getHTMLBody(url);
-                    const extract = extractAllergenInfo(html);
-                    document.getElementById('html-content').value = extract;
+                    let extracts = [];
+                    const urls = extractRedirectLinks(results[0].result);
+                    for (let i = 0; i < urls.length; i++) {
+                        const html = await getHTMLBody(urls[i]);
+                        const extract = extractTableInfo(html);
+                        if (extract) {
+                            extracts.push(extract);
+                        } else {
+                            extracts.push('EMPTY_INFO');
+                        }
+                        document.getElementById('html-content').value = extracts.join('\n\n');
+                    }
                 }
             }
         );
@@ -52,9 +60,20 @@ async function getHTMLBody(url) {
         .then(text => text);
 }
 
-function extractAllergenInfo(htmlContent) {
+function extractTableInfo(htmlContent) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlContent, 'text/html');
-    const allergenInfo = doc.querySelector('#productDescription').textContent;
-    return allergenInfo;
+    const tableKeys = doc.getElementsByClassName("a-color-secondary a-size-base prodDetSectionEntry");
+    const tableVals = doc.getElementsByClassName("a-size-base prodDetAttrValue");
+    
+    let outs = [];
+    let seekKeys = ["ingredients", "allergen information"];
+    
+    let lst = [];
+    for (let i = 0; i < tableKeys.length; i++) {
+        if (seekKeys.includes(tableKeys[i].innerText.toLowerCase().trim())) {
+            lst.push(tableVals[i].innerText);
+        }
+    }
+    return lst.join('\n');
 }
