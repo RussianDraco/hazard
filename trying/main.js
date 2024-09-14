@@ -129,7 +129,9 @@ auth0.createAuth0Client({ // create auth0 client
         return false;
       }
 
-      current_list.splice(current_list.indexOf(document.getElementById('allergies').options[e.selectedIndex])) // add new alergy to list
+      index = current_list.indexOf(document.getElementById('allergies').options[e.selectedIndex])
+      if (index != -1) {current_list.splice(index)}
+      
       console.log(current_list)
       fetch(url, {
           method: 'PATCH',
