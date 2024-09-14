@@ -5,7 +5,7 @@ import Lottie from 'lottie-react'
 const About = () => {
   return (
     <div className='translate-y-60 w-full h-[80vh] flex flex-col items-center'>
-        <div className="text-5xl mt-32">
+        <div className="text-6xl mt-32">
           Behind The Scenes
         </div>
         <div className="flex justify-between mt-20">
@@ -17,7 +17,10 @@ const About = () => {
             <h1>2. Search for anything food related</h1>
             <h1>3. Our extention scrapes the products website and looks for the alergent description</h1>
             <h1>4. It pulls the information and displays it on the catalog</h1>
-            <h1 className='mt-8'>sdasda</h1>
+            <h1 className='mt-8'>Make shopping easier and safer.</h1>
+            <div className=" mt-8 py-3 border-none shadow-md hover:scale-110 hover:shadow-lg transition rounded-lg bg-gradient-to-r from-orange-400 to-orange-600 text-center">
+              <button>Click To Continue</button>
+            </div>
           </div>
 
         </div>
