@@ -190,9 +190,12 @@ const Account = () => {
         </div>
         <div className="w-[30vw] flex items-center justify-center h-64 shadow-lg ml-12">
           <div className="text w-[70%] text-center flex flex-col items-center justify-center">
-          <p>1. Go to chrome://extensions/ in your browser sub chrome for whatever browser you use</p>
-          <p>2. Go to our github and download the extension</p>
-          <p>3. Go back to chrome extensions tab, then click load unpacked, and select the file you just downloaed.</p>
+          <p>1. Extract the zip file below to a regular folder</p>
+          <a href='https://github.com/user-attachments/files/17005541/hazard-extension.zip'>harzard-extension.zip</a>
+          <p>2. Go to chrome://extensions/ (replace chrome with your browser)</p>
+          <p>3. Turn on developer mode</p>
+          <p>4. Click on 'load unpacked' and upload your extracted folder.</p>
+          <p>5. Enjoy!</p>
           </div>
 
         </div>
