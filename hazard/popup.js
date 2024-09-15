@@ -1,11 +1,37 @@
 const ALLERGENS = ['peanut'];
 
+TITLE_LIMIT = 70;
+
+
 function modifyProduct(href, canhave) {
     const elements = document.querySelectorAll(`[href="${href}"]`);
 
     for (let i = 0; i < elements.length; i++) {
         elements[i].firstElementChild.innerHTML = elements[i].firstElementChild.innerHTML + ' STATUS=' + canhave;
     }
+}
+
+function normalize_title(title) {
+    return title.length > TITLE_LIMIT ? title.substring(0, TITLE_LIMIT) + '...' : title.padEnd(TITLE_LIMIT, ' ');
+}
+function normalize_allergens(allergen) {
+    if (allergen == 0) {
+        return 'Unknown :/';
+    }
+    if (allergen == 1) {
+        return 'Not Safe >:(';
+    }
+    if (allergen == 2) {
+        return 'Safe to Eat :)';
+    }
+    return 'ERROR_REACHING_WRONG'; //should never reach here
+}
+function combine_titl_alrg(titles, allergens) {
+    let res = [];
+    for (let i = 0; i < titles.length; i++) {
+        res.push(normalize_title(titles[i]) + ' : ' + normalize_allergens(allergens[i]));
+    }
+    return res.join('\n');
 }
 
 (document.getElementById('get-html'))?.addEventListener('click', async () => {
@@ -20,10 +46,14 @@ function modifyProduct(href, canhave) {
                     let extracts = [];
                     const luObj = extractRedirectLinks(results[0].result);
                     const urls = luObj.links;
-                    const imgs = luObj.imgs;
+                    //const imgs = luObj.imgs;
                     let canhaves = [];
+                    let titles = [];
+
                     for (let i = 0; i < urls.length; i++) {
                         const html = await getHTMLBody(urls[i]);
+                        const title = (new DOMParser()).parseFromString(html, 'text/html').getElementsByClassName('a-size-large product-title-word-break')[0].innerText;
+                        titles.push(title);
                         const extract = extractTableInfo(html);
                         if (extract) {
                             extracts.push(extract);
@@ -32,9 +62,8 @@ function modifyProduct(href, canhave) {
                         }
                         const ch = canHave(urls[i], extract.i, extract.a);
                         canhaves.push(ch);
-                        modifyProduct(urls[i], ch);
 
-                        document.getElementById('html-content').value = canhaves.join('\n\n');
+                        document.getElementById('html-content').value = combine_titl_alrg(titles, canhaves);
                     }
                 }
             }
@@ -118,14 +147,18 @@ const logoUrl = 'https://static.vecteezy.com/system/resources/previews/010/152/4
 
 // Function to add a logo overlay on images
 function addLogoOverlay() {
-    console.log('Adding logo overlay');
+    alert(document.innerHTML);
+
+    alert('Adding logo overlay on images');
 
     // Select all images on the page
-    const images = document.querySelectorAll('img');
+    const images = document.querySelectorAll('h2');
 
-    images.forEach(image => {
-        image.src = logoUrl;
-    });
+    alert(images.length);
+
+    for (let i = 0; i < images.length; i++) {
+        alert(images[i]);
+    }
 }
 
 //canHave => 0: dk; 1: no; 2: yes
@@ -158,3 +191,4 @@ function canHave(href, ingredients, allergenInfo) {
     }
     return canHave;
 }
+
