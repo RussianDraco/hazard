@@ -103,7 +103,7 @@ async function write_allergy(user_id, allergy) {
       body: JSON.stringify({'user_metadata': {'allergies': allergy_list}})
   })
 
-  addToDiv(allergy_list)
+  addToDiv(user_id, allergy_list)
   setCookie(allergy_list)
 }
 
