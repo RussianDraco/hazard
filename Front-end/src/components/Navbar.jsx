@@ -11,7 +11,7 @@ const Navbar = () => {
           </div></a>
         <div className="text-black/65 flex justify-evenly w-[20%] ">
             <a className='hover:text-black hover:cursor-pointer transition'>About</a>
-            <a className='hover:text-black hover:cursor-pointer transition'>Devlopers</a>
+            <a className='hover:text-black hover:cursor-pointer transition'>Developers</a>
             <a className='hover:text-black hover:cursor-pointer transition'>Help</a>
             <a className='hover:text-black hover:cursor-pointer transition'>HTN2024</a>
         </div>
