@@ -14,7 +14,7 @@
 
 #get-html {
     border-radius: 10px;
-    background-color: #f87315;   /* figure out gradient */
+    background-color: #f87315;   
     cursor: pointer;
     outline: none;
     border: none;
@@ -28,6 +28,6 @@
 #html-content {
     font-size: 15px;
     box-sizing: border-box;
-    height: 250px; /* Fixed height */
+    height: 250px; 
     width: 300px;
 }
