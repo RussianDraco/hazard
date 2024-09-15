@@ -1,8 +1,10 @@
 import React from 'react'
 import Animation2 from '../assets/animation2.json'
 import Lottie from 'lottie-react'
+import { useAuth0 } from "@auth0/auth0-react";
 
 const About = () => {
+  const { loginWithRedirect } = useAuth0();
   return (
     <div className='translate-y-60 w-full h-[80vh] flex flex-col items-center'>
         <div className="text-6xl mt-32">
@@ -19,7 +21,7 @@ const About = () => {
             <h1>4. It pulls the information and displays it on the catalog</h1>
             <h1 className='mt-8'>Make shopping easier and safer.</h1>
             <div className=" mt-8 py-3 border-none shadow-md hover:scale-110 hover:shadow-lg transition rounded-lg bg-gradient-to-r from-orange-400 to-orange-600 text-center">
-              <button>Click To Continue</button>
+              <button type='button' onClick={()=>loginWithRedirect()}>Click To Continue</button>
             </div>
           </div>
 
