@@ -5,7 +5,8 @@
     "permissions": [
       "activeTab",
       "scripting",
-      "tabs"
+      "tabs",
+      "cookies"
     ],
     "version": "1.0",
     "action": {

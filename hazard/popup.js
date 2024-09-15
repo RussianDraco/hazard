@@ -1,7 +1,16 @@
-const ALLERGENS = ['peanut'];
-
 TITLE_LIMIT = 70;
 
+chrome.cookies.get({
+    url: "localhost",  // Just the domain, no need for a full path
+    name: "allergies"
+  }, function(cookie) {
+    if (cookie) {
+      console.log("Cookie value:", cookie.value);
+      ALLERGENS = cookie.value.replaceAll('[', '').replaceAll(']', '').split(',')
+    } else {
+      chrome.tabs.create({url: "localhost:3000"})
+    }
+});
 
 function modifyProduct(href, canhave) {
     const elements = document.querySelectorAll(`[href="${href}"]`);
