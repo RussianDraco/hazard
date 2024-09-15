@@ -35,14 +35,25 @@ async function add_get_div(user_id) {
   allergies_element.innerHTML = '';
   if (allergies.length == 0) {return allergies_element.innerHTML = '';}
   if (allergies.length == 1) {
-    allergies_element.innerHTML += '<button style="margin-right: 70px;" id=' + 0 + '>' + 'Delete' + '</button>' + '<a' + ' id=' + 0 + 'b>'+ allergies[0] + '</a>' + '<br>'
+    allergies_element.innerHTML += '<button style="margin-right: 70px; margin-top: 30px" id=' + 0 + '>' + 'Delete' + '</button>' + '<a' + ' id=' + 0 + 'b>'+ allergies[0] + '</a>' + '<br>'
     document.getElementById('0').addEventListener('click', () => delete_allergy(user_id, allergies[0]))
     return true
   }
-  for (let item of allergies) {
-    allergies_element.innerHTML +=  '<button style="margin-right: 70px;" id=' + allergies.indexOf(item) + '>' + 'Delete' + '</button>' + '<a' + ' id=' + allergies.indexOf(item) + 'b>'+ item + '</a>' + '<br>'
-    document.getElementById(allergies.indexOf(item)).addEventListener('click', () => delete_allergy(user_id, item))
-  }
+  allergies.forEach(function (button, index) {
+    let allergies_element = document.getElementById('allergies')
+    allergies_element.innerHTML +=  '<button style="margin-right: 70px; margin-top: 30px" id=' + index + '>' + 'Delete' + '</button>' + '<a' + ' id=' + index + 'b>'+ button + '</a>' + '<br>'
+    let element = document.getElementById(index)
+    console.log(element)
+    element.addEventListener('click', () => {
+      delete_allergy(user_id, button)
+    })
+  });
+  // for (let item of allergies) {
+  //   console.log(allergies.indexOf(item))
+  //   allergies_element.innerHTML +=  '<button style="margin-right: 70px; margin-top: 30px" id=' + allergies.indexOf(item) + '>' + 'Delete' + '</button>' + '<a' + ' id=' + allergies.indexOf(item) + 'b>'+ item + '</a>' + '<br>'
+  //   document.getElementById(allergies.indexOf(item)).addEventListener('click', () => delete_allergy(user_id, item))
+  //   console.log(item)
+  // }
 }
 
 function addToDiv(user_id, list) {
@@ -50,14 +61,22 @@ function addToDiv(user_id, list) {
   allergies.innerHTML = '';
   if (list.length == 0) {return allergies.innerHTML = '';}
   if (list.length == 1) {
-    allergies.innerHTML += '<button style="margin-right: 70px;" id=' + 0 + '>' + 'Delete' + '</button>' + '<a' + ' id=' + 0 + 'b>'+ list[0] + '</a>' + '<br>'
+    allergies.innerHTML += '<button style="margin-right: 70px; margin-top: 30px" id=' + 0 + '>' + 'Delete' + '</button>' + '<a' + ' id=' + 0 + 'b>'+ list[0] + '</a>' + '<br>'
     document.getElementById('0').addEventListener('click', () => delete_allergy(user_id, list[0]))
     return true;
   } 
-  for (let item of list) {
-    allergies.innerHTML +=  '<button style="margin-right: 70px;" id=' + list.indexOf(item) + '>' + 'Delete' + '</button>' + '<a' + ' id=' + list.indexOf(item) + 'b>'+ item + '</a>' + '<br>'
-    document.getElementById(list.indexOf(item)).addEventListener('click', () => delete_allergy(user_id, item))
-  }
+  list.forEach(function (button, index) {
+    let allergies_element = document.getElementById('allergies')
+    allergies_element.innerHTML +=  '<button style="margin-right: 70px; margin-top: 30px" id=' + index + '>' + 'Delete' + '</button>' + '<a' + ' id=' + index + 'b>'+ button + '</a>' + '<br>'
+    let element = document.getElementById(index)
+    element.addEventListener('click', () => {
+      delete_allergy(user_id, button)
+    })
+  });
+  // for (let item of list) {
+  //   allergies.innerHTML +=  '<button style="margin-right: 70px; margin-top: 30px" id=' + list.indexOf(item) + '>' + 'Delete' + '</button>' + '<a' + ' id=' + list.indexOf(item) + 'b>'+ item + '</a>' + '<br>'
+  //   document.getElementById(list.indexOf(item)).addEventListener('click', () => delete_allergy(user_id, item))
+  // }
 }
 
 async function get_allergies(user_id) {
@@ -113,10 +132,12 @@ async function delete_allergy(user_id, allergy) {
   let index = allergy_list.indexOf(allergy)
   console.log(allergy_list, index)
   if (index == -1) {
+      console.log("jhi")
       return false;
   }
 
   allergy_list.splice(index)
+  console.log(allergy_list)
 
   fetch(url+user_id, {
       method: 'PATCH',
