@@ -158,13 +158,22 @@ const Account = () => {
   return (
     <>
     <div className="flex justify-center translate-y-36">
-        <div className="flex flex-col items-center p-6 w-[40vw] h-[60vh] rounded-3xl  shadow-xl">
+        <div className="flex flex-col justify-center items-center p-6 w-[40vw] h-[60vh] rounded-3xl  shadow-xl">
             <div>
+              <h1 className='text-center text-4xl mb-9' >Get Started!</h1>
               <p>Blacklist ingredients below.</p>
               <input id="allergyin" type='text' className='border-gray-500 border-solid border-2 rounded'></input>
-              <button id="allergysubmit" className='ml-[10px]' onClick={() => write_allergy(user_id, document.getElementById('allergyin').value)}>Add</button>
+              <button id="allergysubmit" className='ml-[10px] px-2 py-1 bg-green-400 hover:bg-green-500 transition rounded-xl' onClick={() => write_allergy(user_id, document.getElementById('allergyin').value)}>Add</button>
             </div>
             <div id="allergies" className='mt-2'></div>
+        </div>
+        <div className="w-[30vw] flex items-center justify-center h-64 shadow-lg ml-12">
+          <div className="text w-[70%] text-center flex flex-col items-center justify-center">
+          <p>1. Go to chrome://extensions/ in your browser sub chrome for whatever browser you use</p>
+          <p>2. Go to our github and download the extension</p>
+          <p>3. Go back to chrome extensions tab, then click load unpacked, and select the file you just downloaed.</p>
+          </div>
+
         </div>
     </div>
     </>
