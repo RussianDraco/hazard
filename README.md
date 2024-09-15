@@ -1,4 +1,4 @@
-### hazard
+# hazard
 
 ## Inspiration
 You might think that not being able to have some items would just be a meaningless side-quest, but to someone who actually is allergic, what they consume can be the matter of life and death. 
