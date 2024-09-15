@@ -1,7 +1,7 @@
 # hazard
 
 ## Inspiration
-You might think that not being able to have some items would just be a meaningless side-quest, but to someone who actually is allergic, what they consume can be the matter of life and death. 
+You might think that not being able to have some items would just be a meaningless side thing, but to someone who actually is allergic, what they consume can be the matter of life and death. 
 
 Many people take allergies lightly. Coincidentally the ones that do, don't have any. Having allergies means being mindful of every thing you eat and every thing you purchase. Despite being much easier in real life, just a mere turn of the item and the list is there, there are no means to do the same online. 
 
