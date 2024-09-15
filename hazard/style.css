@@ -1,0 +1,33 @@
+* {
+    font-family: 'Poppins';
+    font-size: 25px;
+}
+
+#button {
+    justify-content: center;
+    display: flex;
+    align-items: center; 
+    text-align: center;
+    padding-bottom: 15px;
+    padding-top: 10px;
+}
+
+#get-html {
+    border-radius: 10px;
+    background-color: #f87315;   /* figure out gradient */
+    cursor: pointer;
+    outline: none;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+
+#get-html:hover {
+    transform: scale(0.85);
+}
+
+#html-content {
+    font-size: 15px;
+    box-sizing: border-box;
+    height: 250px; /* Fixed height */
+    width: 300px;
+}
