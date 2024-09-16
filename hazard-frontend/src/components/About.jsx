@@ -14,7 +14,7 @@ const About = () => {
           <div className="ml-36 -translate-y-[10%] ">
             <Lottie animationData={Animation2} className='w-[500px]'/>
           </div>
-          <div className="w-[40%] xs:w-80 mb-28 mr-60 text-xl leading-relaxed">
+          <div className="w-[40%] xs:w-80 mb-80 mr-60 text-xl leading-relaxed">
             <h1>1. Go onto Amazon.com</h1>
             <h1>2. Search for anything food related</h1>
             <h1>3. Our extention scrapes the products website and looks for the alergent description</h1>

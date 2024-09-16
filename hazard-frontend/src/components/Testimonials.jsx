@@ -7,7 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 const Testimonials = () => {
     const { loginWithRedirect } = useAuth0();
   return (
-    <div className='flex flex-col items-center translate-y-64 w-full h-[70vh] '>
+    <div className='flex flex-col items-center translate-y-96 w-full h-[70vh] '>
         <div className="text-6xl mb-5">
             Testimonials
         </div>
