@@ -9,7 +9,7 @@ const Navbar = () => {
           <a href='/' ><div className="text-3xl font-medium">
             HAZARD
           </div></a>
-        <div className="text-black/65 flex justify-evenly w-[20%] ">
+        <div className="text-black/65 flex justify-evenly normal:w-[20%] xs:w-[40%] md:w-[30%] sm:w-[40%]">
             <a className='hover:text-black hover:cursor-pointer transition'>About</a>
             <a className='hover:text-black hover:cursor-pointer transition'>Developers</a>
             <a className='hover:text-black hover:cursor-pointer transition'>Help</a>
